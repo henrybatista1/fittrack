@@ -96,7 +96,7 @@ fun Text(text: TextData) {
 
 //All texts in column1 should be aligned to the start
 //All texts in column2 should be aligned to the end
-//A row is skipped if the both columns are blank at the same index
+//A row is skipped if both columns are blank at the same index
 
 private val blankText = TextData("")
 @Composable

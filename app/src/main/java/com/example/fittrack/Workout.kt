@@ -8,8 +8,7 @@ data class Activity(val name:String, val duration: Int)
 
 data class Workout(
     val name: String,
-    val exercises: List<Exercise> = listOf(Exercise()
-    )
+    val exercises: List<Exercise> = listOf(Exercise())
 )
 
 data class Exercise(
