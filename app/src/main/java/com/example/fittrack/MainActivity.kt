@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun Screen(title: String, content: @Composable (ColumnScope.() -> Unit)) {
 
@@ -146,6 +145,17 @@ fun InfoCard(
     column2Texts: List<TextData> = emptyList(),
     onClick: (() -> Unit)? = null
 ) {
+    BaseCard(modifier, onClick) {
+        TextRows(column1Texts, column2Texts)
+    }
+}
+
+@Composable
+fun BaseCard(
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
+    content: @Composable (ColumnScope.() -> Unit)
+    ) {
     val cd = CardDefaults
     val color = Color.White
     val elevation = 5.dp
@@ -155,10 +165,9 @@ fun InfoCard(
         modifier = modifier,
         enabled = onClick != null,
         colors = cd.cardColors(containerColor = color, disabledContainerColor = color),
-        elevation = cd.cardElevation(defaultElevation = elevation, disabledElevation = elevation)
-    ) {
-        Column(Modifier.padding(10.dp), Arrangement.spacedBy(5.dp)){
-            TextRows(column1Texts, column2Texts)
-        }
+        elevation = cd.cardElevation(defaultElevation = elevation, disabledElevation = elevation),
+    ){
+        Column(Modifier.padding(10.dp).fillMaxWidth(), Arrangement.spacedBy(8.dp), Alignment.CenterHorizontally, content = content)
     }
+
 }
