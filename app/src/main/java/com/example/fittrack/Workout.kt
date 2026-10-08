@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 val workouts: List<Workout> = createWorkouts()
 
+data class Activity(val name:String, val duration: Int)
+
 data class Workout(
     val name: String,
     val exercises: List<Exercise> = listOf(Exercise()

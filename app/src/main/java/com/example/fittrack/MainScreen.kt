@@ -3,30 +3,34 @@ package com.example.fittrack
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
-fun MainScreen() {
+fun MainScreen(viewModel: AppViewModel = AppViewModel()) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     Screen("FitTrack") {
-        SummaryStatsCard()
+        SummaryStatsCard(uiState.completed, uiState.totalTime)
         WorkoutPicker()
     }
 }
 
 @Composable
-private fun SummaryStatsCard() {
+private fun SummaryStatsCard(completed: Int, totalTime: Int) {
     InfoCard(
         column1Texts = listOf(
             toStatsTextData("Completed:"),
             toStatsTextData("Total Time:")
         ),
         column2Texts = listOf(
-            toStatsTextData("0"),
-            toStatsTextData("0")
-        ) //TODO Replace the 0 placeholders with viewModel values
+            toStatsTextData("$completed"),
+            toStatsTextData("$totalTime")
+        )
     )
 }
 
