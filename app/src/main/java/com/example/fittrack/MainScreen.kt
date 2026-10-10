@@ -53,6 +53,6 @@ private fun WorkoutCard(workout: Workout) {
 
 @Preview
 @Composable
-private fun MainScreenPreview() {
+fun MainPreview() {
     MainScreen()
 }

@@ -31,11 +31,3 @@ fun ExerciseCard(exercise: Exercise, isPreview: Boolean = true ){
     )
 
 }
-
-@Preview
-@Composable
-private fun Preview(){
-    ExerciseListScreen(
-        Workout("Strength", listOf(Exercise(), Exercise(), Exercise()))
-    )
-}
