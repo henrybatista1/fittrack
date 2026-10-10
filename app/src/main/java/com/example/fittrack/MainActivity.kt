@@ -5,13 +5,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -19,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -127,21 +131,34 @@ data class TextData(
     val text: String,
     val fontSize: TextUnit = TextUnit.Unspecified,
     val fontWeight: FontWeight = FontWeight.Normal,
-    val color: Color = Color.Black
+    val color: Color = Color.Black,
+    val isBorderVisible: Boolean = false,
+    val backgroundColor: Color = Color.Transparent
 ) {
-    fun isBlank(): Boolean {
-        return text.isBlank()
+    companion object{
+        val borderShape = RoundedCornerShape(10.dp)
     }
+    fun isBlank(): Boolean = text.isBlank()
+    fun isNotBlank(): Boolean = text.isNotBlank()
 }
 
 @Composable
-fun Text(text: TextData) {
-    Text(
-        text = text.text,
-        fontSize = text.fontSize,
-        fontWeight = text.fontWeight,
-        color = text.color
-    )
+private fun Text(text: TextData) {
+
+    var modifier = Modifier.clip(TextData.borderShape).background(text.backgroundColor)
+    if(text.isBorderVisible) {
+        modifier = modifier.border(1.dp, Color.Black, TextData.borderShape)
+    }
+
+    Box(modifier){
+        Text(
+            text = text.text,
+            modifier = Modifier.padding(5.dp, 1.dp, 5.dp, 1.dp),
+            fontSize = text.fontSize,
+            fontWeight = text.fontWeight,
+            color = text.color
+        )
+    }
 }
 
 //All texts in column1 should be aligned to the start
@@ -163,8 +180,8 @@ private fun TextRow(text1: TextData = blankText, text2: TextData = blankText) {
         horizontalArrangement = arrangement,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text1)
-        Text(text2)
+        if(text1.isNotBlank()) Text(text1)
+        if(text2.isNotBlank()) Text(text2)
     }
 }
 
@@ -219,7 +236,7 @@ fun BaseCard(
     ) {
         Column(
             Modifier
-                .padding(10.dp)
+                .padding(5.dp, 9.dp, 5.dp, 9.dp)
                 .fillMaxWidth(),
             Arrangement.spacedBy(8.dp),
             Alignment.CenterHorizontally,
