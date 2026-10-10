@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.update
 data class UiState(
     val completed: Int = 0,
     val totalTime: Int = 0,
-    val activity: List<Activity> = emptyList()
+    val activities: List<Activity> = emptyList()
 )
 
 class AppViewModel : ViewModel() {
@@ -17,12 +17,12 @@ class AppViewModel : ViewModel() {
 
 
     fun update(activity: Activity) {
-        val activities = _uiState.value.activity.toMutableList()
+        val activities = _uiState.value.activities.toMutableList()
         activities.add(activity)
         _uiState.update { it.copy(
             completed = it.completed + 1,
             totalTime = it.totalTime + activity.duration,
-            activity = activities
+            activities = activities
         ) }
     }
 
@@ -30,7 +30,7 @@ class AppViewModel : ViewModel() {
         _uiState.update { it.copy(
             completed = 0,
             totalTime = 0,
-            activity = emptyList()
+            activities = emptyList()
         ) }
     }
 

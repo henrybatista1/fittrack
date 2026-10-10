@@ -65,7 +65,6 @@ private fun createArgument(id: String): List<NamedNavArgument> {
     return listOf(navArgument(id) { NavType.StringType })
 }
 
-//TODO Make cards clickable for navigation
 @Composable
 fun AppNavigation(viewModel: AppViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
