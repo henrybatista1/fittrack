@@ -18,30 +18,20 @@ fun MainScreen(uiState: UiState, onNavigateToList: (String) -> Unit) {
 @Composable
 private fun SummaryStatsCard(completed: Int, totalTime: Int) {
     InfoCard(
-        column1Texts = listOf(
-            toStatsTextData("Completed:"),
-            toStatsTextData("Total Time:")
-        ),
-        column2Texts = listOf(
-            toStatsTextData("$completed"),
-            toStatsTextData("$totalTime")
-        )
+        column1Texts = listOf("Completed:".toTextData(), "Total Time:".toTextData()),
+        column2Texts = listOf(completed.toTextData(), totalTime.toTextData())
     )
-}
-
-fun toStatsTextData(text: String): TextData {
-    return TextData(text, 22.sp)
 }
 
 @Composable
 private fun WorkoutPicker(onNavigateToList: (String) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
-        for(i in workouts.indices) WorkoutCard(workouts[i]) { onNavigateToList("$i") }
+        for(id in workouts.indices) {
+            val text = workouts[id].name.toTextData(FontWeight.Bold)
+            InfoCard(column1Texts = listOf(text)) { onNavigateToList("$id") }
+        }
     }
 }
 
-@Composable
-private fun WorkoutCard(workout: Workout, oncClick: () -> Unit){
-    val text = TextData(workout.name, 21.sp, FontWeight.Bold)
-    InfoCard(column1Texts = listOf(text), onClick = oncClick)
-}
+private fun String.toTextData(fontWeight: FontWeight = FontWeight.Normal): TextData = TextData(this, 21.sp, fontWeight)
+private fun Int.toTextData(): TextData = toString().toTextData()
