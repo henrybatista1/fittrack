@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.sp
 fun MainScreen(uiState: UiState, onNavigateToList: (String) -> Unit) {
     Screen("FitTrack") {
         SummaryStatsCard(uiState.completed, uiState.totalTime)
-        WorkoutPicker()
+        WorkoutPicker(onNavigateToList)
     }
 }
 
@@ -34,14 +34,14 @@ fun toStatsTextData(text: String): TextData {
 }
 
 @Composable
-private fun WorkoutPicker() {
+private fun WorkoutPicker(onNavigateToList: (String) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
-        for (workout in workouts) WorkoutCard(workout)
+        for(i in workouts.indices) WorkoutCard(workouts[i]) { onNavigateToList("$i") }
     }
 }
 
 @Composable
-private fun WorkoutCard(workout: Workout) {
+private fun WorkoutCard(workout: Workout, oncClick: () -> Unit){
     val text = TextData(workout.name, 21.sp, FontWeight.Bold)
-    InfoCard(column1Texts = listOf(text))
+    InfoCard(column1Texts = listOf(text), onClick = oncClick)
 }

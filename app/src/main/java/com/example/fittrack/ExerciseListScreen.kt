@@ -3,22 +3,22 @@ package com.example.fittrack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun ExerciseListScreen(id: String, onNavigateToDetail: (String) -> Unit) {
     val workout = workouts[id.toInt()]
+    val exercises = workout.exercises
 
     Screen(workout.name) {
-        for(exercise in workout.exercises){
-            ExerciseCard(exercise)
+        for(i in exercises.indices) {
+            ExerciseCard(exercises[i]){onNavigateToDetail("$id$i")}
         }
     }
 }
 
 @Composable
-fun ExerciseCard(exercise: Exercise, isPreview: Boolean = true ){
+fun ExerciseCard(exercise: Exercise, isPreview: Boolean = true, onClick: (()-> Unit)? = null) {
     val recommendedText = "Recommended: ${exercise.duration} minutes"
     val instructions = if(isPreview) exercise.instructionPreview else exercise.instructions
     InfoCard(
@@ -30,6 +30,7 @@ fun ExerciseCard(exercise: Exercise, isPreview: Boolean = true ){
         column2Texts = listOf(
             TextData(exercise.difficulty.name)
         ),
+        onClick = onClick
     )
 
 }
