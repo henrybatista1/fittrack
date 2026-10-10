@@ -3,17 +3,12 @@ package com.example.fittrack
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
-fun MainScreen(viewModel: AppViewModel = AppViewModel()) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
+fun MainScreen(uiState: UiState) {
     Screen("FitTrack") {
         SummaryStatsCard(uiState.completed, uiState.totalTime)
         WorkoutPicker()
@@ -49,10 +44,4 @@ private fun WorkoutPicker() {
 private fun WorkoutCard(workout: Workout) {
     val text = TextData(workout.name, 21.sp, FontWeight.Bold)
     InfoCard(column1Texts = listOf(text))
-}
-
-@Preview
-@Composable
-fun MainPreview() {
-    MainScreen()
 }

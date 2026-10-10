@@ -16,14 +16,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun ExerciseDetailScreen(
     exercise: Exercise,
-    viewModel: AppViewModel = AppViewModel()
+    viewModel: AppViewModel
 ) {
     Screen(exercise.name) {
         ExerciseCard(exercise, false)
@@ -62,10 +60,4 @@ private fun LoggingForm(exercise: Exercise, viewModel: AppViewModel) {
         }
 
     }
-}
-
-@Preview
-@Composable
-fun ExerciseDetailPreview() {
-    ExerciseDetailScreen(Exercise())
 }
