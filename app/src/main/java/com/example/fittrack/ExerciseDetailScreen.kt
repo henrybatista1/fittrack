@@ -19,10 +19,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ExerciseDetailScreen(
-    exercise: Exercise,
-    viewModel: AppViewModel
-) {
+fun ExerciseDetailScreen(id: String, viewModel: AppViewModel) {
+    val id1 = ("" + id[0]).toInt()
+    val id2 = ("" + id[1]).toInt()
+
+    val exercise = workouts[id1].exercises[id2]
+
     Screen(exercise.name) {
         ExerciseCard(exercise, false)
         LoggingForm(exercise, viewModel)

@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MainScreen(uiState: UiState) {
+fun MainScreen(uiState: UiState, onNavigateToList: (String) -> Unit) {
     Screen("FitTrack") {
         SummaryStatsCard(uiState.completed, uiState.totalTime)
         WorkoutPicker()

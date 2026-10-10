@@ -7,7 +7,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ExerciseListScreen(workout: Workout) {
+fun ExerciseListScreen(id: String, onNavigateToDetail: (String) -> Unit) {
+    val workout = workouts[id.toInt()]
+
     Screen(workout.name) {
         for(exercise in workout.exercises){
             ExerciseCard(exercise)
