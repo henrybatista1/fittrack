@@ -21,6 +21,7 @@ fun ExerciseListScreen(id: String, onNavigateToDetail: (String) -> Unit) {
 fun ExerciseCard(exercise: Exercise, isPreview: Boolean = true, onClick: (()-> Unit)? = null) {
     val recommendedText = "Recommended: ${exercise.duration} minutes"
     val instructions = if(isPreview) exercise.instructionPreview else exercise.instructions
+    val difficulty = exercise.difficulty
     InfoCard(
         column1Texts = listOf(
             TextData(exercise.name, 21.sp, FontWeight.Bold),
@@ -28,7 +29,7 @@ fun ExerciseCard(exercise: Exercise, isPreview: Boolean = true, onClick: (()-> U
             TextData(instructions, color = Color.Gray)
         ),
         column2Texts = listOf(
-            TextData(exercise.difficulty.name)
+            TextData(difficulty.name, isBorderVisible = true, backgroundColor = difficulty.color)
         ),
         onClick = onClick
     )
