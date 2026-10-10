@@ -2,10 +2,10 @@ package com.example.fittrack
 
 import androidx.compose.ui.graphics.Color
 
+private val items = mutableListOf<Item>()
+
 val workouts: List<Workout> = createWorkouts()
 
-
-private val items = mutableListOf<Item>()
 abstract class Item {
     val id: Int = items.size
     init { items.add(this) }
