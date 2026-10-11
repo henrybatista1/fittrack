@@ -65,7 +65,7 @@ private fun HistoryLog(modifier: Modifier, activities: List<Activity>, onClear: 
                 verticalArrangement = Arrangement.spacedBy(15.dp)
 
             ) {
-                items(activities, {it.id}) {
+                items(activities.reversed(), {it.id}) {
                     InfoCard(
                         column1Texts = listOf(it.name.toTextData()),
                         column2Texts = listOf(it.duration.toTextData())
