@@ -23,7 +23,7 @@ fun ExerciseDetailScreen(exerciseId: Int, viewModel: AppViewModel) {
     val exercise = getExercise(exerciseId)!!
 
     Screen(exercise.name) {
-        ExerciseCard(exercise, false)
+        InfoCard(exercise)
         LoggingForm(exercise, viewModel)
     }
 }

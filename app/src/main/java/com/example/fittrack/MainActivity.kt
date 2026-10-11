@@ -198,14 +198,24 @@ private fun TextRows(column1Texts: List<TextData>, column2Texts: List<TextData>)
 //Column1 texts will be displayed on the left side and column2 texts
 //will be displayed on the right.
 
+data class InfoCardData(
+    val column1Texts: List<TextData> = emptyList(),
+    val column2Texts: List<TextData> = emptyList(),
+)
+
+@Composable
+fun InfoCard(item: Item, onClick: (() -> Unit)? = null) {
+    val data = item.toInfoCardData()
+    InfoCard(data.column1Texts, data.column2Texts, onClick)
+}
+
 @Composable
 fun InfoCard(
-    modifier: Modifier = Modifier,
     column1Texts: List<TextData> = emptyList(),
     column2Texts: List<TextData> = emptyList(),
     onClick: (() -> Unit)? = null
 ) {
-    BaseCard(modifier, onClick) {
+    BaseCard(onClick = onClick) {
         TextRows(column1Texts, column2Texts)
     }
 }

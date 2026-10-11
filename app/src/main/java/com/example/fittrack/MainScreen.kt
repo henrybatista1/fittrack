@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -40,10 +39,7 @@ private fun SummaryStatsCard(completed: Int, totalTime: Int) {
 @Composable
 private fun WorkoutPicker(onNavigateToList: (Int) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
-        for(workout in workouts) {
-            val text = workout.name.toTextData(FontWeight.Bold)
-            InfoCard(column1Texts = listOf(text)) { onNavigateToList(workout.id) }
-        }
+        for(workout in workouts) InfoCard(workout) { onNavigateToList(workout.id) }
     }
 }
 
@@ -65,12 +61,7 @@ private fun HistoryLog(modifier: Modifier, activities: List<Activity>, onClear: 
                 verticalArrangement = Arrangement.spacedBy(15.dp)
 
             ) {
-                items(activities.reversed(), {it.id}) {
-                    InfoCard(
-                        column1Texts = listOf(it.name.toTextData()),
-                        column2Texts = listOf(it.duration.toTextData())
-                    )
-                }
+                items(activities.reversed(), {it.id}) { InfoCard(it) }
             }
 
             Button(onClear, Modifier.fillMaxWidth()) { Text("Clear") }
@@ -79,5 +70,5 @@ private fun HistoryLog(modifier: Modifier, activities: List<Activity>, onClear: 
     }
 }
 
-private fun String.toTextData(fontWeight: FontWeight = FontWeight.Normal): TextData = TextData(this, 21.sp, fontWeight)
+private fun String.toTextData(): TextData = TextData(this, 21.sp)
 private fun Int.toTextData(): TextData = toString().toTextData()
