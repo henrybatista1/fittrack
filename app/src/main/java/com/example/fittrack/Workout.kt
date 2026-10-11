@@ -51,7 +51,9 @@ class Exercise(
 
 ): Item() {
 
-    var showPreview = false
+    companion object {
+        var showPreview = false
+    }
 
     override fun toInfoCardData(): InfoCardData {
         val instructions = if(showPreview) instructionPreview else this.instructions
