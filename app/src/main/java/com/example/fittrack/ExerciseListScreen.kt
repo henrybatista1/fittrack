@@ -6,13 +6,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ExerciseListScreen(id: String, onNavigateToDetail: (String) -> Unit) {
-    val workout = workouts[id.toInt()]
+fun ExerciseListScreen(workoutId: Int,  onNavigateToDetail: (Int) -> Unit) {
+    val workout = getWorkout(workoutId)!!
     val exercises = workout.exercises
 
     Screen(workout.name) {
-        for(i in exercises.indices) {
-            ExerciseCard(exercises[i]){onNavigateToDetail("$id$i")}
+        for (exercise in exercises){
+            ExerciseCard(exercise){onNavigateToDetail(exercise.id)}
         }
     }
 }

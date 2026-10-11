@@ -62,7 +62,7 @@ fun Preview() {
 }
 
 private fun createArgument(id: String): List<NamedNavArgument> {
-    return listOf(navArgument(id) { NavType.StringType })
+    return listOf(navArgument(id) { type = NavType.IntType })
 }
 
 @Composable
@@ -71,25 +71,23 @@ fun AppNavigation(viewModel: AppViewModel = viewModel()) {
 
     val navController = rememberNavController()
 
-
     NavHost(
         navController = navController,
         startDestination = "main"
     ) {
         composable("main") {
-            MainScreen(uiState, onNavigateToList = { navController.navigate("list/$it") })
+            MainScreen(uiState) { navController.navigate("list/$it") }
         }
 
         composable("list/{workoutId}", createArgument("workoutId")) { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("workoutId")!!
-            ExerciseListScreen(id, onNavigateToDetail = { navController.navigate("detail/$it") })
+            val workoutId = backStackEntry.arguments?.getInt("workoutId")!!
+            ExerciseListScreen(workoutId) { navController.navigate("detail/$it") }
         }
 
-        composable(route = "detail/{workout&ExerciseId}", createArgument("workout&ExerciseId")) { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("workout&ExerciseId")!!
-            ExerciseDetailScreen(id, viewModel)
+        composable("detail/{exerciseId}", createArgument("exerciseId")) { backStackEntry ->
+            val exerciseId = backStackEntry.arguments?.getInt("exerciseId")!!
+            ExerciseDetailScreen(exerciseId, viewModel)
         }
-
     }
 }
 
