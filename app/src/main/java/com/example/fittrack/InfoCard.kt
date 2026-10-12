@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -150,4 +152,23 @@ fun BaseCard(
             content = content
         )
     }
+}
+
+@Composable
+fun InfoCardList(modifier: Modifier = Modifier, items: List<Item>, onNavigateTo: ((Int) -> Unit)? = null) {
+
+    LazyColumn(
+        modifier,
+        verticalArrangement = Arrangement.spacedBy(15.dp)
+    ) {
+        items(items, { it.id }) {
+            var onClick: (() -> Unit)? = null
+            if(onNavigateTo != null) onClick = { onNavigateTo(it.id) }
+
+            InfoCard(it, onClick = onClick)
+        }
+        //item{} will work as a bottom spacer so that there is room for the last card's shadow
+        item{}
+    }
+
 }
